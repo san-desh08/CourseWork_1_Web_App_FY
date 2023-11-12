@@ -139,8 +139,36 @@
                 <p><strong>Phone:</strong> {{ userData.phone }}</p>
             </div>
         </div>
-
     </div>
+
+
+    <script src="pro.js"></script>
+
+    <!-- Vue.js script -->
+    <script>
+        // Vue instance
+        new Vue({
+            el: "#app",
+            // Data properties
+            data: {
+                sortByOption: "price",
+                searchQuery: '',
+                sortOrder: "asc",
+                subjects: pro,
+                userData: {
+                    name: '',
+                    phone: '',
+                },
+                showProduct: true,
+                showCart: false,
+                showSortingOptions: true,
+                showCheckOutForm: false,
+                cartItems: [],
+                orderSubmitted: false,
+            },
+        });
+    </script>
+
 </body>
 
 </html>
