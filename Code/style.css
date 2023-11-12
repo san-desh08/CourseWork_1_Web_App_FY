@@ -155,3 +155,164 @@ button {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+/* Styling for the cart items */
+.cart-items {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the cart items heading */
+.cart-items h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Styling for the cart item list */
+.cart-items ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Styling for individual cart items */
+.cart-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+/* Styling for cart item images */
+.cart-items img {
+    max-width: 100px;
+    height: auto;
+    margin-right: 20px;
+}
+
+/* Styling for the remove item button */
+#remove-item {
+    background-color: white;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Styling for the checkout button */
+.checkout-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* Styling for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Styling for table header */
+thead {
+    background-color: #f2f2f2;
+}
+
+/* Styling for table cells */
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+/* Styling for even table rows */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Styling for table image column */
+td img {
+    max-width: 50px;
+    max-height: 50px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Styling for the proceed to checkout button */
+#proceed-to-checkout {
+    display: block;
+    margin: 20px auto;
+    padding: 15px 20px;
+    font-size: 18px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Styling for the checkout form */
+.checkout-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Styling for form groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Styling for form labels */
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+/* Styling for form inputs */
+.checkout-form.input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Styling for form buttons */
+.checkout-form.button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Hover effect for form buttons */
+.checkout-form.button:hover {
+    background-color: #2980b9;
+}
+
+/* Styling for the order confirmation message */
+.order-confirmation {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+    color: #3c763d;
+    border-radius: 5px;
+}
+
+/* Styling for order information */
+.order-info {
+    margin-top: 20px;
+    font-size: 16px;
+}
