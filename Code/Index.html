@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Page title -->
     <title>Bookstore Website</title>
     <!-- External libraries -->
@@ -31,6 +29,7 @@
             <button id="basket-button" @click="showBasket">{{ cardLength }} <i class="fa-solid fa-cart-shopping"
                     style="color: #111212;"></i> Basket </button>
         </div>
+
         <div class="container">
             <!-- Sorting options section -->
             <div class="sorting-options" v-if="showSortingOptions">
@@ -65,6 +64,10 @@
                 <p v-if="book.availability === 0" style="color: red;">Out of Stock</p>
             </div>
         </div>
+
+
+
+
         <!-- Shopping cart items section -->
         <div class="cart-items">
             <div v-if="showCart">
@@ -106,6 +109,9 @@
                 </template>
             </div>
         </div>
+
+
+
         <!-- Checkout form section -->
         <div class="checkout-form" v-if="showCheckOutForm">
             <h1>Checkout</h1>
@@ -139,10 +145,10 @@
                 <p><strong>Phone:</strong> {{ userData.phone }}</p>
             </div>
         </div>
+
     </div>
+    <script src="booksData.js"></script>
 
-
-    <script src="pro.js"></script>
 
     <!-- Vue.js script -->
     <script>
@@ -154,7 +160,7 @@
                 sortByOption: "price",
                 searchQuery: '',
                 sortOrder: "asc",
-                subjects: pro,
+                subjects: booksData,
                 userData: {
                     name: '',
                     phone: '',
@@ -217,7 +223,9 @@
                     });
                     return total || "0";
                 }
+
             },
+            // Methods for form validation, cart functionality, and other actions
             methods: {
                 // Function to validate the Name field (letters only)
                 validateName() {
@@ -309,7 +317,6 @@
             },
         });
     </script>
-
 </body>
 
 </html>
