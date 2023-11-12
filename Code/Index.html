@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title -->
+    <title>Bookstore Website</title>
+    <!-- External libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://kit.fontawesome.com/cd1c1fddbc.js" crossorigin="anonymous"></script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Navbar section -->
+        <div class="navbar">
+            <h1>BookMart.com</h1>
+            <!-- Search and cart functionality -->
+            <div class="search-cart">
+                <div id="search-Bar">
+                    <!-- Search input and button -->
+                    <input id="input" type="search" id="search-input" v-model="searchQuery"
+                        placeholder="Search here...">
+                    <button id="search-button" @click="performSearch">Search</button>
+                </div>
+            </div>
+            <!-- Shopping cart button -->
+            <button id="basket-button" @click="showBasket">{{ cardLength }} <i class="fa-solid fa-cart-shopping"
+                    style="color: #111212;"></i> Basket </button>
+        </div>
+</body>
+
+</html>
