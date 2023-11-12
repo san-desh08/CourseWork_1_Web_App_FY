@@ -50,6 +50,21 @@
                 <label for="descending">Descending</label>
             </div>
         </div>
+        <!-- Book list section -->
+        <div class="book-list">
+            <div v-if="showProduct" v-for="book in filteredBooks" class="book-card">
+                <!-- Book details -->
+                <img class="image" v-bind:src="book.icon" alt="Book Icon">
+                <h3>{{ book.title }}</h3>
+                <p>Price: £{{ book.price }}</p>
+                <p>Location: {{ book.location }}</p>
+                <p>Availability: {{ book.availability > 0 ? book.availability + ' In Stock' : 'Out of Stock' }}</p>
+                <!-- Add to cart button -->
+                <button id="add-basket" @click="addToCart(book)" :disabled="book.availability === 0">Add to
+                    Basket</button>
+                <p v-if="book.availability === 0" style="color: red;">Out of Stock</p>
+            </div>
+        </div>
     </div>
 </body>
 
