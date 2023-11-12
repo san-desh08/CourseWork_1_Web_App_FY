@@ -106,6 +106,40 @@
                 </template>
             </div>
         </div>
+        <!-- Checkout form section -->
+        <div class="checkout-form" v-if="showCheckOutForm">
+            <h1>Checkout</h1>
+            <!-- Name input field -->
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" v-model="userData.name" required>
+                <!-- Name validation message -->
+                <p v-if="userData.name && !validateName()" style="color: red;">Name should contain letters only.
+                </p>
+            </div>
+            <!-- Phone input field -->
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" v-model="userData.phone" required>
+                <!-- Phone validation message -->
+                <p v-if="userData.phone && !validatePhone()" style="color: red;">Phone should contain numbers
+                    only.</p>
+            </div>
+            <!-- Checkout button -->
+            <button @click.prevent="submitForm" :disabled="!isFormValid">Checkout</button>
+            <!-- Order confirmation message -->
+            <div class="order-confirmation" v-if="orderSubmitted">
+                <p>Order has been submitted!</p>
+            </div>
+
+            <!-- Order information section -->
+            <div class="order-info" v-if="orderSubmitted">
+                <h2>Order Information:</h2>
+                <p><strong>Name:</strong> {{ userData.name }}</p>
+                <p><strong>Phone:</strong> {{ userData.phone }}</p>
+            </div>
+        </div>
+
     </div>
 </body>
 
