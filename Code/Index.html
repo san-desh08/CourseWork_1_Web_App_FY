@@ -31,7 +31,26 @@
             <button id="basket-button" @click="showBasket">{{ cardLength }} <i class="fa-solid fa-cart-shopping"
                     style="color: #111212;"></i> Basket </button>
         </div>
+        <div class="container">
+            <!-- Sorting options section -->
+            <div class="sorting-options" v-if="showSortingOptions">
+                <label>Sort By:</label>
+                <!-- Dropdown for sorting options -->
+                <select v-model="sortByOption">
+                    <option value="title">Book Name</option>
+                    <option value="price">Price</option>
+                    <option value="location">Location</option>
+                    <option value="availability">Availability</option>
+                </select>
+                <!-- Radio buttons for sort order -->
+                <label>Sort Order:</label>
+                <input type="radio" v-model="sortOrder" value="asc" id="ascending" />
+                <label for="ascending">Ascending</label>
+                <input type="radio" v-model="sortOrder" value="desc" id="descending" />
+                <label for="descending">Descending</label>
+            </div>
         </div>
+    </div>
 </body>
 
 </html>
