@@ -166,6 +166,36 @@
                 cartItems: [],
                 orderSubmitted: false,
             },
+            // Computed properties for sorting and filtering books, form validation, and cart length
+            computed: {
+                // Computed property to sort books based on selected options
+                sortedBooks: function () {
+                    let sortedBooks = [...this.subjects];
+
+                    if (this.sortByOption === "price") {
+                        sortedBooks.sort((a, b) =>
+                            this.sortOrder === "asc" ? a.price - b.price : b.price - a.price
+                        );
+                    } else if (this.sortByOption === "location") {
+                        sortedBooks.sort((a, b) =>
+                            this.sortOrder === "asc"
+                                ? a.location.localeCompare(b.location)
+                                : b.location.localeCompare(a.location)
+                        );
+                    } else if (this.sortByOption === "availability") {
+                        sortedBooks.sort((a, b) =>
+                            this.sortOrder === "asc" ? a.availability - b.availability : b.availability - a.availability
+                        );
+                    } else if (this.sortByOption === "title") {
+                        sortedBooks.sort((a, b) =>
+                            this.sortOrder === "asc"
+                                ? a.title.localeCompare(b.title)
+                                : b.title.localeCompare(a.title)
+                        );
+                    }
+                    return sortedBooks;
+                },
+            }
         });
     </script>
 
