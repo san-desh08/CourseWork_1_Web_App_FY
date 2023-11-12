@@ -195,6 +195,28 @@
                     }
                     return sortedBooks;
                 },
+                // Computed property to filter books based on search query
+                filteredBooks: function () {
+                    const query = this.searchQuery.toLowerCase().trim();
+
+                    let filteredAndSortedBooks = this.sortedBooks.filter(book =>
+                        book.title.toLowerCase().includes(query) ||
+                        book.location.toLowerCase().includes(query)
+                    );
+
+                    return filteredAndSortedBooks;
+                },
+                // Computed property to check if the form is valid
+                isFormValid() {
+                    return this.validateName() && this.validatePhone();
+                },
+                cardLength: function () {
+                    let total = 0;
+                    this.cartItems.forEach(element => {
+                        total += element.cartItem;
+                    });
+                    return total || "0";
+                }
             }
         });
     </script>
