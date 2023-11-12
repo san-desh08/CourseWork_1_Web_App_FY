@@ -217,7 +217,31 @@
                     });
                     return total || "0";
                 }
-            }
+            },
+            methods: {
+                // Function to validate the Name field (letters only)
+                validateName() {
+                    const namePattern = /^[A-Za-z\s]+$/;
+                    return namePattern.test(this.userData.name);
+                },
+                // Function to validate the Phone field (numbers only)
+                validatePhone() {
+                    const phonePattern = /^\d+$/;
+                    return phonePattern.test(this.userData.phone);
+                },
+                // Function to check if the form is valid
+                checkFormValidity() {
+                    return this.validateName() && this.validatePhone();
+                },
+                // Toggle the cart visibility
+                showBasket() {
+                    this.showProduct = !this.showProduct;
+                    this.showCart = !this.showCart;
+                    this.showSortingOptions = !this.showSortingOptions;
+                    this.showCheckOutForm = false;
+                },
+                
+            },
         });
     </script>
 
