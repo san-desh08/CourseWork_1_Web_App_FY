@@ -240,7 +240,52 @@
                     this.showSortingOptions = !this.showSortingOptions;
                     this.showCheckOutForm = false;
                 },
-                
+                // Add a book to the cart
+                addToCart: function (book) {
+                    let itemId = book.id;
+                    let counter = 0;
+                    if (this.cartItems.length != 0) {
+                        this.cartItems.forEach(element => {
+                            if (itemId == element.id) {
+                                counter += 1;
+                            }
+                        });
+                        if (counter == 0) {
+                            this.cartItems.push(book);
+                            book.cartItem++;
+                        }
+
+                    } else {
+                        this.cartItems.push(book);
+                        book.cartItem += 1;
+                    }
+                    book.cartItem += counter;
+                    book.availability--;
+                },
+
+                // Remove a book from the cart
+                removeFromCart: function (index) {
+                    if (index >= 0 && index < this.cartItems.length) {
+                        const removedItem = this.cartItems[index];
+
+                        // Decrease the cartItem property by 1
+                        if (removedItem.cartItem > 0) {
+                            removedItem.cartItem -= 1;
+                        }
+
+                        // If cartItem becomes 0, remove the item from the cart
+                        if (removedItem.cartItem === 0) {
+                            this.cartItems.splice(index, 1);
+                        }
+
+                        // Increase availability of the removed item
+                        const bookIndex = this.subjects.findIndex((book) => book.title === removedItem.title);
+                        if (bookIndex !== -1) {
+                            this.subjects[bookIndex].availability += 1;
+                        }
+                    }
+                },
+
             },
         });
     </script>
