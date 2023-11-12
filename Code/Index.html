@@ -285,7 +285,27 @@
                         }
                     }
                 },
+                // Toggle the checkout form visibility
+                toggleCheckoutForm: function () {
+                    this.showCheckOutForm = !this.showCheckOutForm;
+                },
 
+
+
+                // Function to perform search (placeholder, no implementation)
+                performSearch: function () {
+                    // Update the filteredBooks based on the searchQuery
+                    this.filteredBooks = this.sortedBooks.filter(book =>
+                        book.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                        book.location.toLowerCase().includes(this.searchQuery.toLowerCase())
+                    );
+                },
+                // Function to handle form submission (placeholder, no implementation)
+                submitForm() {
+                    // Handle form submission here, e.g., send data to the server
+
+                    this.orderSubmitted = true;
+                },
             },
         });
     </script>
