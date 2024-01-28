@@ -56,7 +56,7 @@
         <div class="book-list">
             <div v-if="showProduct" v-for="book in filteredBooks" class="book-card">
                 <!-- Book details -->
-                <img class="image" v-bind:src="'http://localhost:9999/' + book.icon" alt="Book Icon">
+                <img class="image" v-bind:src="'https://bookmart.eu-north-1.elasticbeanstalk.com/' + book.icon" alt="Book Icon">
 
                 <h3>{{ book.title }}</h3>
                 <p>Price: £{{ book.price }}</p>
@@ -97,7 +97,7 @@
                         <tbody>
                             <!-- Display cart items in a table -->
                             <tr v-for="(item, index) in cartItems" :key="index">
-                                <td><img :src="'http://localhost:9999/'+ item.icon" alt="Book Icon"></td>
+                                <td><img :src="'https://bookmart.eu-north-1.elasticbeanstalk.com/'+ item.icon" alt="Book Icon"></td>
                                 <td>{{ item.title }}</td>
                                 <td>{{ item.cartItem }}</td>
                                 <td>{{ item.location }}</td>
@@ -312,7 +312,7 @@
                 // Function to perform search (placeholder, no implementation)
                 performSearch: function () {
                     // Update the filteredBooks based on the searchQuery
-                    fetch(`http://localhost:9999/search?query=${this.searchQuery}`)
+                    fetch(`https://bookmart.eu-north-1.elasticbeanstalk.com/search?query=${this.searchQuery}`)
                         .then(response => response.json())
                         .then(data => {
                             this.filteredBooks = data;
@@ -331,7 +331,7 @@
                         this.order.quantity = this.cartItems.map(item => item.cartItem),
 
                         // Send order to the server (POST request)
-                        fetch('http://localhost:9999/collections/orders', {
+                        fetch('https://bookmart.eu-north-1.elasticbeanstalk.com/collections/orders', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -342,7 +342,7 @@
                             .then(data => {
                                 const cartItemIds = this.cartItems.map(cartItem => cartItem.id);
                                 // Send a PUT request to update the cart items with the order id
-                                fetch('http://localhost:9999/collections/products', {
+                                fetch('https://bookmart.eu-north-1.elasticbeanstalk.com/collections/products', {
                                     method: 'PUT',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -368,7 +368,7 @@
                 }
             },
             created: function () {
-                fetch('http://localhost:9999/collections/products')
+                fetch('https://bookmart.eu-north-1.elasticbeanstalk.com/collections/products')
                     .then(response => response.json())
                     .then(data => this.subjects = data)
                     .catch(err => console.error('Error:', err));
