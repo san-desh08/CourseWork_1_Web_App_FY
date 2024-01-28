@@ -1,0 +1,318 @@
+/* Resetting default styles for all elements */* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+
+
+/* Styling for the navigation bar */
+.navbar {
+    background-color: #1E90FF; /* Set background color */
+    color: white; /* Set text color */
+    padding: 0px 5px; /* Add padding */
+    height: 50px; /* Set height */
+    display: flex; /* Use flexbox */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center items vertically */
+}
+
+/* Styling for the "Add to Basket" button */
+#add-basket {
+    padding-bottom: 2px; /* Adjust spacing */
+}
+
+/* Styling for the input field */
+#input {
+    height: 25px;
+    padding: 0px 6px;
+    border-radius: 8px;
+    border: none;
+}
+/* Styling for general buttons */
+button {
+    height: 25px;
+    border-radius: 8px;
+}
+
+/* Styling for sorting options */
+.sorting-options {
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+    margin: 12px 0px;
+}
+
+/* Styling for the main container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Styling for the book list */
+.book-list {
+    width: 95%;
+    margin: 0px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Styling for individual book cards */
+.book-card {
+    width: 250px;
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+/* Hover effect for book cards */
+.book-card:hover {
+    box-shadow: rgba(0, 0, 0, 0.30) 0px 5px 15px;
+    border-radius: unset;
+    transform: scale(1.01);
+}
+
+/* Styling for book images */
+.book-card img {
+    width: 100%;
+    height: 200px;
+}
+
+/* Styling for book titles */
+.book-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Styling for book descriptions */
+.book-card p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* Styling for book buttons */
+.book-card button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Disabled state for book buttons */
+.book-card button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Hover effect for book buttons */
+.book-card button:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for the search bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+/* Styling for search input field */
+#search-input {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styling for search button */
+#search-button {
+    background: #edefef;
+    color: #060606;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Styling for the basket button */
+#basket-button {
+    display: flex;
+    background-color: white;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-radius: 3px;
+    width: 80px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+/* Styling for the cart items */
+.cart-items {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the cart items heading */
+.cart-items h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Styling for the cart item list */
+.cart-items ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Styling for individual cart items */
+.cart-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+/* Styling for cart item images */
+.cart-items img {
+    max-width: 100px;
+    height: auto;
+    margin-right: 20px;
+}
+
+/* Styling for the remove item button */
+#remove-item {
+    background-color: white;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Styling for the checkout button */
+.checkout-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* Styling for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Styling for table header */
+thead {
+    background-color: #f2f2f2;
+}
+
+/* Styling for table cells */
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+/* Styling for even table rows */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Styling for table image column */
+td img {
+    max-width: 50px;
+    max-height: 50px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Styling for the proceed to checkout button */
+#proceed-to-checkout {
+    display: block;
+    margin: 20px auto;
+    padding: 15px 20px;
+    font-size: 18px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Styling for the checkout form */
+.checkout-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Styling for form groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Styling for form labels */
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+/* Styling for form inputs */
+.checkout-form.input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Styling for form buttons */
+.checkout-form.button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Hover effect for form buttons */
+.checko ut-form.button:hover {
+    background-color: #2980b9;
+}
+
+/* Styling for the order confirmation message */
+.order-confirmation {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+    color: #3c763d;
+    border-radius: 5px;
+}
+
+/* Styling for order information */
+.order-info {
+    margin-top: 20px;
+    font-size: 16px;
+}

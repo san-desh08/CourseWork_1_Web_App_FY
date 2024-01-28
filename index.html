@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Page title -->
+    <title>Bookstore Website</title>
+    <!-- External libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://kit.fontawesome.com/cd1c1fddbc.js" crossorigin="anonymous"></script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Navbar section -->
+        <div class="navbar">
+            <h1>BookMart.com</h1>
+            <!-- Search and cart functionality -->
+            <div class="search-cart">
+                <div id="search-Bar">
+                    <!-- Search input and button -->
+                    <input id="input" type="search" id="search-input" v-model="searchQuery"
+                        placeholder="Search here...">
+                    <button id="search-button" @click="performSearch">Search</button>
+                </div>
+                <ul>
+                    <li v-for="result in searchResults" :key="result._id">{{ result.lessonName }}</li>
+                </ul>
+            </div>
+            <!-- Shopping cart button -->
+            <button id="basket-button" @click="showBasket">{{ cardLength }} <i class="fa-solid fa-cart-shopping"
+                    style="color: #111212;"></i> Basket </button>
+        </div>
+
+        <div class="container">
+            <!-- Sorting options section -->
+            <div class="sorting-options" v-if="showSortingOptions">
+                <label>Sort By:</label>
+                <!-- Dropdown for sorting options -->
+                <select v-model="sortByOption">
+                    <option value="title">Book Name</option>
+                    <option value="price">Price</option>
+                    <option value="location">Location</option>
+                    <option value="availability">Availability</option>
+                </select>
+                <!-- Radio buttons for sort order -->
+                <label>Sort Order:</label>
+                <input type="radio" v-model="sortOrder" value="asc" id="ascending" />
+                <label for="ascending">Ascending</label>
+                <input type="radio" v-model="sortOrder" value="desc" id="descending" />
+                <label for="descending">Descending</label>
+            </div>
+        </div>
+        <!-- Book list section -->
+        <div class="book-list">
+            <div v-if="showProduct" v-for="book in filteredBooks" class="book-card">
+                <!-- Book details -->
+                <img class="image" v-bind:src="'http://localhost:9999/' + book.icon" alt="Book Icon">
+
+                <h3>{{ book.title }}</h3>
+                <p>Price: £{{ book.price }}</p>
+                <p>Location: {{ book.location }}</p>
+                <p>Availability: {{ book.availability > 0 ? book.availability + ' In Stock' : 'Out of Stock' }}</p>
+                <!-- Add to cart button -->
+                <button id="add-basket" @click="addToCart(book)" :disabled="book.availability === 0">Add to
+                    Basket</button>
+                <p v-if="book.availability === 0" style="color: red;">Out of Stock</p>
+            </div>
+        </div>
+
+
+
+
+        <!-- Shopping cart items section -->
+        <div class="cart-items">
+            <div v-if="showCart">
+                <h2>Shopping Cart</h2>
+                <!-- Check if cart is empty -->
+                <template v-if="cartItems.length === 0">
+                    <p>Your shopping cart is empty.</p>
+                </template>
+                <!-- Render table if cart is not empty -->
+                <template v-else>
+                    <table>
+                        <thead>
+                            <!-- Table headers -->
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Location</th>
+                                <th>Remove</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Display cart items in a table -->
+                            <tr v-for="(item, index) in cartItems" :key="index">
+                                <td><img :src="'http://localhost:9999/'+ item.icon" alt="Book Icon"></td>
+                                <td>{{ item.title }}</td>
+                                <td>{{ item.cartItem }}</td>
+                                <td>{{ item.location }}</td>
+                                <!-- Remove item button -->
+                                <td><button id="remove-item" @click="removeFromCart(index)"><i class="fa-solid fa-trash"
+                                            style="color: #f10404;"></i></button></td>
+                                <td>£{{ item.price*item.cartItem }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Proceed to checkout button -->
+                    <button id="proceed-to-checkout" @click="toggleCheckoutForm">Proceed to Checkout</button>
+                </template>
+            </div>
+        </div>
+
+
+
+        <!-- Checkout form section -->
+        <div class="checkout-form" v-if="showCheckOutForm">
+            <h1>Checkout</h1>
+            <!-- Name input field -->
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" v-model="userData.name" required>
+                <!-- Name validation message -->
+                <p v-if="userData.name && !validateName()" style="color: red;">Name should contain letters only.
+                </p>
+            </div>
+            <!-- Phone input field -->
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" v-model="userData.phone" required>
+                <!-- Phone validation message -->
+                <p v-if="userData.phone && !validatePhone()" style="color: red;">Phone should contain numbers
+                    only.</p>
+            </div>
+            <!-- Checkout button -->
+            <button @click="submitForm" :disabled="!isFormValid">Checkout</button>
+            <!-- Order confirmation message -->
+            <!-- <div class="order-confirmation" v-if="orderSubmitted">
+                <p>Order has been submitted!</p>
+            </div> -->
+
+            <!-- Order information section -->
+            <div class="order-info" v-if="orderSubmitted">
+                <h2>Order Information:</h2>
+                <p><strong>Name:</strong> {{ userData.name }}</p>
+                <p><strong>Phone:</strong> {{ userData.phone }}</p>
+            </div>
+        </div>
+
+    </div>
+    <!-- Link to booksdata -->
+
+
+
+    <!-- Vue.js script -->
+    <script type="module">
+        // Vue instance
+        new Vue({
+            el: "#app",
+            // Data properties
+            data: {
+                sortByOption: "price",
+                searchQuery: '',
+                sortOrder: "asc",
+                subjects: [],
+                userData: {
+                    name: '',
+                    phone: '',
+                },
+                showProduct: true,
+                showCart: false,
+                showSortingOptions: true,
+                showCheckOutForm: false,
+                cartItems: [],
+                orderSubmitted: false,
+                order: {
+                    id: [],
+                    quantity: []
+                }
+            },
+            // Computed properties for sorting and filtering books, form validation, and cart length
+            computed: {
+                // Computed property to sort books based on selected options
+                sortedBooks: function () {
+                    let sortedBooks = [...this.subjects];
+
+                    if (this.sortByOption === "price") {
+                        sortedBooks.sort((a, b) =>
+                            this.sortOrder === "asc" ? a.price - b.price : b.price - a.price
+                        );
+                    } else if (this.sortByOption === "location") {
+                        sortedBooks.sort((a, b) =>
+                            this.sortOrder === "asc"
+                                ? a.location.localeCompare(b.location)
+                                : b.location.localeCompare(a.location)
+                        );
+                    } else if (this.sortByOption === "availability") {
+                        sortedBooks.sort((a, b) =>
+                            this.sortOrder === "asc" ? a.availability - b.availability : b.availability - a.availability
+                        );
+                    } else if (this.sortByOption === "title") {
+                        sortedBooks.sort((a, b) =>
+                            this.sortOrder === "asc"
+                                ? a.title.localeCompare(b.title)
+                                : b.title.localeCompare(a.title)
+                        );
+                    }
+                    return sortedBooks;
+                },
+                // Computed property to filter books based on search query
+                filteredBooks: function () {
+                    const query = this.searchQuery.toLowerCase().trim();
+
+                    let filteredAndSortedBooks = this.sortedBooks.filter(book =>
+                        book.title.toLowerCase().includes(query) ||
+                        book.location.toLowerCase().includes(query)
+                    );
+                    console.log(filteredAndSortedBooks);
+                    return filteredAndSortedBooks;
+
+                },
+                // Computed property to check if the form is valid
+                isFormValid() {
+                    return this.validateName() && this.validatePhone();
+                },
+                cardLength: function () {
+                    let total = 0;
+                    this.cartItems.forEach(element => {
+                        total += element.cartItem;
+                    });
+                    return total || "0";
+                },
+
+            },
+            // Methods for form validation, cart functionality, and other actions
+            methods: {
+                // Function to check if the form is valid
+                checkFormValidity() {
+                    return this.validateName() && this.validatePhone();
+                },
+                // Toggle the cart visibility
+                showBasket() {
+                    this.showProduct = !this.showProduct;
+                    this.showCart = !this.showCart;
+                    this.showSortingOptions = !this.showSortingOptions;
+                    this.showCheckOutForm = false;
+                },
+                // Add a book to the cart
+                addToCart: function (book) {
+                    let itemId = book.id;
+                    let counter = 0;
+                    if (this.cartItems.length != 0) {
+                        this.cartItems.forEach(element => {
+                            if (itemId == element.id) {
+                                counter += 1;
+                            }
+                        });
+                        if (counter == 0) {
+                            this.cartItems.push(book);
+                            book.cartItem++;
+                        }
+
+                    } else {
+                        this.cartItems.push(book);
+                        book.cartItem += 1;
+                    }
+                    book.cartItem += counter;
+                    book.availability--;
+                },
+
+                // Remove a book from the cart
+                removeFromCart: function (index) {
+                    if (index >= 0 && index < this.cartItems.length) {
+                        const removedItem = this.cartItems[index];
+
+                        // Decrease the cartItem property by 1
+                        if (removedItem.cartItem > 0) {
+                            removedItem.cartItem -= 1;
+                        }
+
+                        // If cartItem becomes 0, remove the item from the cart
+                        if (removedItem.cartItem === 0) {
+                            this.cartItems.splice(index, 1);
+                        }
+
+                        // Increase availability of the removed item
+                        const bookIndex = this.subjects.findIndex((book) => book.title === removedItem.title);
+                        if (bookIndex !== -1) {
+                            this.subjects[bookIndex].availability += 1;
+                        }
+                    }
+                },
+                // Toggle the checkout form visibility
+                toggleCheckoutForm: function () {
+                    this.showCheckOutForm = !this.showCheckOutForm;
+                },
+
+                // Function to validate the Name field (letters only)
+                validateName() {
+                    const namePattern = /^[A-Za-z\s]+$/;
+                    return namePattern.test(this.userData.name);
+                },
+                // Function to validate the Phone field (numbers only)
+                validatePhone() {
+                    const phonePattern = /^\d+$/;
+                    return phonePattern.test(this.userData.phone);
+                },
+
+                // Function to perform search (placeholder, no implementation)
+                performSearch: function () {
+                    // Update the filteredBooks based on the searchQuery
+                    fetch(`http://localhost:9999/search?query=${this.searchQuery}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            this.filteredBooks = data;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching search results:', error);
+                        });
+                },
+
+                // Function to handle form submission (placeholder, no implementation)
+                submitForm() {
+                    // Prepare order data
+                    this.order.name = this.userData.name,
+                        this.order.phone = this.userData.phone,
+                        this.order.id = this.cartItems.map(item => item.id),
+                        this.order.quantity = this.cartItems.map(item => item.cartItem),
+
+                        // Send order to the server (POST request)
+                        fetch('http://localhost:9999/collections/orders', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(this.order),
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                const cartItemIds = this.cartItems.map(cartItem => cartItem.id);
+                                // Send a PUT request to update the cart items with the order id
+                                fetch('http://localhost:9999/collections/products', {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ id: this.order.id, quantity: this.order.quantity })
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        this.subjects = data;
+                                        if (window.confirm('Order submitted successfully!')) {
+                                            if (window.confirm('Continue shopping, have a nice day! :).')) {
+                                                location.reload();
+                                            }
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error mapping order to cart items:', error);
+                                    });
+                            })
+                            .catch(error => {
+                                console.error('Error submitting order:', error);
+                            });
+                }
+            },
+            created: function () {
+                fetch('http://localhost:9999/collections/products')
+                    .then(response => response.json())
+                    .then(data => this.subjects = data)
+                    .catch(err => console.error('Error:', err));
+
+            }
+        });
+    </script>
+</body>
+
+</html>
