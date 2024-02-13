@@ -265,7 +265,7 @@
                         return this.subjects;
                     } else {
                         // Send the search query to the server
-                        fetch(`https://bookmart.eu-north-1.elasticbeanstalk.com/search?query=${this.searchQuery}`)
+                        fetch(`https://bookmart.eu-north-1.elasticbeanstalk.com/search?q=${this.searchQuery}`)
                         .then(response => response.json())
                         .then(data => this.subjects = data)
                         .catch(err => console.error('Error:', err));
