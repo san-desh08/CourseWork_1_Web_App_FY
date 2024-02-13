@@ -266,9 +266,9 @@
                     } else {
                         // Send the search query to the server
                         fetch(`https://bookmart.eu-north-1.elasticbeanstalk.com/search?q=${this.searchQuery}`)
-                        .then(response => response.json())
-                        .then(data => this.subjects = data)
-                        .catch(err => console.error('Error:', err));
+                            .then(response => response.json())
+                            .then(data => this.subjects = data)
+                            .catch(err => console.error('Error:', err));
                         return this.subjects;
                     }
                 },
