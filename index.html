@@ -50,7 +50,7 @@
         </div>
         <!-- Book list section -->
         <div class="book-list">
-            <div v-if="showProduct" v-for="book in filteredBooks" class="book-card">
+            <div v-if="showProduct" v-for="book in subjects" class="book-card">
                 <!-- Book details -->
                 <img class="image" v-bind:src="'https://bookmart.eu-north-1.elasticbeanstalk.com/' + book.icon" alt="Book Icon">
 
