@@ -21,7 +21,7 @@
                 <div id="search-Bar">
                     <!-- Search input and button -->
                     <input id="input" type="search" id="search-input" v-model="searchQuery"
-                        placeholder="Search here...">
+                        placeholder="Search here..." @input="filteredBooks">
                 </div>
             </div>
             <!-- Shopping cart button -->
@@ -208,15 +208,22 @@
                 },
                 // Computed property to filter books based on search query
                 filteredBooks: function () {
-                    const query = this.searchQuery.toLowerCase().trim();
-
-                    let filteredAndSortedBooks = this.sortedBooks.filter(book =>
-                        book.title.toLowerCase().includes(query) ||
-                        book.location.toLowerCase().includes(query)
-                    );
-                    console.log(filteredAndSortedBooks);
-                    return filteredAndSortedBooks;
-
+                    const key = this.searchQuery.toLowerCase().trim();
+                    if (key == "") {
+                        // Fetch all products when the search query is empty
+                        fetch(`https://bookmart.eu-north-1.elasticbeanstalk.com/collections/products`)
+                            .then(response => response.json())
+                            .then(data => this.subjects = data)
+                            .catch(err => console.error('Error:', err));
+                        return this.subjects;
+                    } else {
+                        // Send the search query to the server
+                        fetch(`https://bookmart.eu-north-1.elasticbeanstalk.com/search?query=${this.searchQuery}`)
+                        .then(response => response.json())
+                        .then(data => this.subjects = data)
+                        .catch(err => console.error('Error:', err));
+                        return this.subjects;
+                    }
                 },
                 // Computed property to check if the form is valid
                 isFormValid() { 
@@ -229,19 +236,6 @@
                     });
                     return total || "0";
                 },
-                 // Function to perform search (placeholder, no implementation)
-                performSearch: function () {
-                    // Update the filteredBooks based on the searchQuery
-                    fetch(`https://bookmart.eu-north-1.elasticbeanstalk.com/search?query=${this.searchQuery}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            this.filteredBooks = data;
-                        })
-                        .catch(error => {
-                            console.error('Error fetching search results:', error);
-                        });
-                }
-
             },
             // Methods for form validation, cart functionality, and other actions
             methods: {
