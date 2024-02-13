@@ -206,25 +206,6 @@
                     }
                     return sortedBooks;
                 },
-                // Computed property to filter books based on search query
-                filteredBooks: function () {
-                    const key = this.searchQuery.toLowerCase().trim();
-                    if (key == "") {
-                        // Fetch all products when the search query is empty
-                        fetch(`https://bookmart.eu-north-1.elasticbeanstalk.com/collections/products`)
-                            .then(response => response.json())
-                            .then(data => this.subjects = data)
-                            .catch(err => console.error('Error:', err));
-                        return this.subjects;
-                    } else {
-                        // Send the search query to the server
-                        fetch(`https://bookmart.eu-north-1.elasticbeanstalk.com/search?query=${this.searchQuery}`)
-                        .then(response => response.json())
-                        .then(data => this.subjects = data)
-                        .catch(err => console.error('Error:', err));
-                        return this.subjects;
-                    }
-                },
                 // Computed property to check if the form is valid
                 isFormValid() { 
                     return this.validateName() && this.validatePhone();
@@ -271,6 +252,25 @@
                     }
                     book.cartItem += counter;
                     book.availability--;
+                },
+                // Computed property to filter books based on search query
+                filteredBooks: function () {
+                    const key = this.searchQuery.toLowerCase().trim();
+                    if (key == "") {
+                        // Fetch all products when the search query is empty
+                        fetch(`https://bookmart.eu-north-1.elasticbeanstalk.com/collections/products`)
+                            .then(response => response.json())
+                            .then(data => this.subjects = data)
+                            .catch(err => console.error('Error:', err));
+                        return this.subjects;
+                    } else {
+                        // Send the search query to the server
+                        fetch(`https://bookmart.eu-north-1.elasticbeanstalk.com/search?query=${this.searchQuery}`)
+                        .then(response => response.json())
+                        .then(data => this.subjects = data)
+                        .catch(err => console.error('Error:', err));
+                        return this.subjects;
+                    }
                 },
 
                 // Remove a book from the cart
